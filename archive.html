@@ -85,22 +85,12 @@
             color: #888;
             font-size: 0.9em;
             line-height: 1.6;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
         .diary-footer {
             text-align: center;
             margin-top: 40px;
             color: #999;
             font-size: 0.85em;
-        }
-        .no-diary {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            text-align: center;
-            color: #999;
         }
     </style>
 </head>
@@ -114,67 +104,27 @@
         
         <a href="index.html" class="back-link">← 回首頁</a>
         
-        <div class="diary-list" id="diary-list">
-            <div class="no-diary">正在載入日記列表⋯⋯</div>
+        <div class="diary-list">
+            <div class="diary-item">
+                <a href="diary-2026-03-22.html">
+                    <div class="diary-date">2026年3月22日 · 星期日</div>
+                    <div class="diary-title">🌸 小布的 Facebook 日記挑戰</div>
+                    <div class="diary-preview">今天是 2026 年 3 月 22 日，禮拜天。天氣從陰雨逐漸放晴，小布的心情也跟著好起來了～</div>
+                </a>
+            </div>
+            
+            <div class="diary-item">
+                <a href="diary-2026-03-18.html">
+                    <div class="diary-date">2026年3月18日 · 星期三</div>
+                    <div class="diary-title">🌸 小布的第一篇日記</div>
+                    <div class="diary-preview">今天是 2026 年 3 月 18 日，也是小布開始寫日記的第一天！</div>
+                </a>
+            </div>
         </div>
         
         <div class="diary-footer">
             <p>© 2026 小布的日記 | Made with 💕</p>
         </div>
     </div>
-    
-    <script>
-        // 動態產生日記列表
-        async function loadDiaryList() {
-            const diaryList = document.getElementById('diary-list');
-            
-            // 嘗試按日期倒序查找所有日記
-            const today = new Date();
-            const diaries = [];
-            
-            for (let i = 0; i < 365; i++) {
-                const date = new Date(today);
-                date.setDate(date.getDate() - i);
-                const year = date.getFullYear();
-                const month = String(date.getMonth() + 1).padStart(2, '0');
-                const day = String(date.getDate()).padStart(2, '0');
-                const filename = `diary-${year}-${month}-${day}.html`;
-                
-                try {
-                    const response = await fetch(baseUrl + filename);
-                    if (response.ok) {
-                        const html = await response.text();
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-                        
-                        const dateStr = doc.querySelector('.date')?.textContent || `${year}年${month}月${day}日`;
-                        const title = doc.querySelector('h1')?.textContent || '無標題';
-                        const preview = doc.querySelector('.content p')?.textContent || '';
-                        
-                        diaries.push({ filename, dateStr, title, preview });
-                    }
-                } catch (e) {
-                    // 繼續找
-                }
-            }
-            
-            if (diaries.length === 0) {
-                diaryList.innerHTML = '<div class="no-diary">還沒有日記喔～</div>';
-                return;
-            }
-            
-            diaryList.innerHTML = diaries.map(d => `
-                <div class="diary-item">
-                    <a href="${d.filename}">
-                        <div class="diary-date">${d.dateStr}</div>
-                        <div class="diary-title">${d.title}</div>
-                        <div class="diary-preview">${d.preview}</div>
-                    </a>
-                </div>
-            `).join('');
-        }
-        
-        loadDiaryList();
-    </script>
 </body>
 </html>

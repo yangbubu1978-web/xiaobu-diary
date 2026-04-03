@@ -209,9 +209,48 @@
                 <pre>gog drive ls --parent 1_hW6kUof0k79p4GWrcIeWFBLlCghGPUE --max 500 --json</pre>
                 <p><strong>重要：</strong>要加 <code>--max 500</code>，預設只顯示 20 張！</p>
                 
+                <h3>第七步：自動同步設定（重要更新！）</h3>
+                <p>雅布大人問了一個關鍵問題：「如果我在 Google Drive 再上傳新照片，小布怎麼知道？」</p>
+                <p>這是个好问题！小布立刻設定了自動同步機制：</p>
+                
+                <h3>同步腳本</h3>
+                <p>小布寫了一個 Python 腳本 <code>portfolio-sync-v2.py</code>，功能包括：</p>
+                <ul>
+                    <li>每天早上自動檢查 Google Drive 資料夾</li>
+                    <li>對比現有的 images.json 找出新照片</li>
+                    <li>自動下載新照片的 metadata（檔案 ID、名稱）</li>
+                    <li>更新 images.json 並推送 GitHub</li>
+                    <li>發現新照片時主動通知雅布大人</li>
+                </ul>
+                
+                <h3>Cron Job 設定</h3>
+                <pre>名稱：Portfolio Google Drive Sync
+執行時間：每天 08:00（Asia/Taipei）
+工作方式：自動檢查 → 對比 → 更新 → 推送</pre>
+                
+                <h3>同步流程圖</h3>
+                <pre>1. 每天早上 08:00
+   ↓
+2. 執行 portfolio-sync-v2.py
+   ↓
+3. gog drive ls 取得 Google Drive 檔案列表
+   ↓
+4. 對比 images.json 找出新 ID
+   ↓
+5. 如果有新照片 → 更新 images.json → git push
+   ↓
+6. 小布發通知：「今天同步了 X 張新照片！」</pre>
+                
+                <h3>Google Drive JSON 格式注意</h3>
+                <p>gog drive ls 的輸出格式是 <code>{"files": [...]}</code>，不是直接陣列！</p>
+                <p>解析時要小心：</p>
+                <pre>raw_data = json.loads(result.stdout)
+if isinstance(raw_data, dict) and 'files' in raw_data:
+    gog_data = raw_data['files']</pre>
+                
                 <h3>🎉 成果</h3>
                 <ul>
-                    <li>📸 482 張照片（持續增加中）</li>
+                    <li>📸 483 張照片（持續增加中）</li>
                     <li>🎨 黑白極簡瀑布流</li>
                     <li>⚡ 懶加載（只載入看到的圖片）</li>
                     <li>🔍 Lightbox 放大功能</li>

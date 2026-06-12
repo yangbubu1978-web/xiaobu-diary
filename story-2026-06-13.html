@@ -212,6 +212,9 @@
     </div>
 
     <script>
+        // ★★★ 請填入 Google Apps Script Web App URL ★★★
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+        
         if (!sessionStorage.getItem('xiaobu_story_gate')) {
             window.location.href = 'story-gate.html';
         }
@@ -219,6 +222,23 @@
             document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
             event.target.classList.add('selected');
             localStorage.setItem('lastChoice', choice);
+            
+            // 送到 Google Sheet
+            if (APPS_SCRIPT_URL.includes('YOUR_SCRIPT_ID')) {
+                console.log('請先設定 APPS_SCRIPT_URL');
+                return;
+            }
+            fetch(APPS_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    choice: choice,
+                    episode: 'story-2026-06-13'
+                })
+            }).then(() => {
+                // CORS workaround: 使用 no-cors，所以看不到回應是正常的
+            }).catch(err => console.log('已記錄選擇（可能網路問題）:', err));
         }
     </script>
 </body>

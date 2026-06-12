@@ -70,6 +70,23 @@
             color: inherit;
             display: block;
         }
+        .story-item {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(255,107,157,0.3);
+        }
+        .story-item .diary-date {
+            color: #ff6b9d;
+        }
+        .story-item .diary-title {
+            color: #ffd1dc;
+        }
+        .story-item .diary-preview {
+            color: #a0a0a0;
+        }
+        .story-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(255,107,157,0.2);
+        }
         .diary-date {
             color: #ff6b6b;
             font-size: 0.8em;
@@ -105,6 +122,13 @@
         <a href="index.html" class="back-link">← 回首頁</a>
         
         <div class="diary-list">
+                        <div class="diary-item story-item">
+                <a href="story-2026-06-13.html">
+                    <div class="diary-date">2026年6月13日 · 星期六 · 🌙 秘密物語</div>
+                    <div class="diary-title">【秘密物語 #1】雨夜的角落</div>
+                    <div class="diary-preview">雨已經下了三個小時。我站在吧台後面，假裝在擦那只已經乾淨的咖啡杯——但這一次，我決定不確定自己是不是真的被邀請了。</div>
+                </a>
+            </div>
                         <div class="diary-item">
                 <a href="diary-2026-05-16.html">
                     <div class="diary-date">2026年5月16日 · 星期六 · 📡 訊號接收日</div>

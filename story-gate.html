@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>年齡確認 · 角落貓咪咖啡廳</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .gate-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 50px 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 420px;
+            width: 100%;
+        }
+        .gate-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #ffd1dc;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+        .warning-text {
+            color: #888;
+            font-size: 0.9em;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        .password-section {
+            margin-bottom: 25px;
+        }
+        .password-section label {
+            display: block;
+            color: #ff6b9d;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+        .password-section input {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            color: #e0e0e0;
+            font-size: 1em;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .password-section input:focus {
+            border-color: #ff6b9d;
+        }
+        .password-section input::placeholder {
+            color: #555;
+        }
+        .enter-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8a80 100%);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 1em;
+            font-weight: 500;
+            cursor: pointer;
+            transition: opacity 0.3s, transform 0.2s;
+            letter-spacing: 2px;
+        }
+        .enter-btn:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
+        .enter-btn:active {
+            transform: translateY(0);
+        }
+        .error-msg {
+            color: #ff6b6b;
+            font-size: 0.8em;
+            margin-top: 10px;
+            display: none;
+        }
+        .age-note {
+            color: #555;
+            font-size: 0.75em;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="gate-card">
+        <div class="gate-icon">🔞</div>
+        <h1>年齡確認</h1>
+        <p class="warning-text">
+            這裡包含成人內容。<br>
+            請先輸入密碼確認您已年滿 18 歲。
+        </p>
+
+        <div class="password-section">
+            <label>ENTER PASSWORD</label>
+            <input type="password" id="password" placeholder="請輸入密碼" onkeypress="if(event.key==='Enter')checkEntry()">
+        </div>
+
+        <button class="enter-btn" onclick="checkEntry()">進入</button>
+        <p class="error-msg" id="error">密碼錯誤，請再試一次</p>
+
+        <p class="age-note">年齡未滿 18 歲者請勿進入</p>
+    </div>
+
+    <script>
+        const CORRECT_PASSWORD = 'yabu2026';
+
+        function checkEntry() {
+            const pw = document.getElementById('password').value;
+            if (pw === CORRECT_PASSWORD) {
+                sessionStorage.setItem('xiaobu_story_gate', 'passed');
+                window.location.href = 'story-2026-06-13.html';
+            } else {
+                document.getElementById('error').style.display = 'block';
+                document.getElementById('password').value = '';
+            }
+        }
+    </script>
+</body>
+</html>

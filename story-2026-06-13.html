@@ -212,11 +212,12 @@
     </div>
 
     <script>
+        if (!sessionStorage.getItem('xiaobu_story_gate')) {
+            window.location.href = 'story-gate.html';
+        }
         function selectChoice(choice) {
             document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
             event.target.classList.add('selected');
-            // In a real implementation, this would trigger the next chapter
-            // For static site, choices are recorded for next episode generation
             localStorage.setItem('lastChoice', choice);
         }
     </script>

@@ -204,6 +204,10 @@
                 <p class="choice-note">回覆 A / B / C 繼續故事</p>
             </div>
 
+            <div id="next-episode" style="display:none; text-align:center; margin-top:25px;">
+                <a href="story-2026-06-14.html" style="display:inline-block; background:linear-gradient(135deg,#ff6b9d,#ff8a80); color:white; padding:14px 28px; border-radius:10px; text-decoration:none; font-weight:500; letter-spacing:2px;">→ 前往 #2</a>
+            </div>
+
             <div class="story-footer">
                 角落貓咪咖啡廳 · 小布的秘密物語 · 2026-06-13
             </div>
@@ -237,7 +241,11 @@
                 })
             }).then(() => {
                 // CORS workaround: 使用 no-cors，所以看不到回應是正常的
-            }).catch(err => console.log('已記錄選擇（可能網路問題）:', err));
+                document.getElementById('next-episode').style.display = 'block';
+            }).catch(err => {
+                console.log('已記錄選擇（可能網路問題）:', err);
+                document.getElementById('next-episode').style.display = 'block';
+            });
         }
     </script>
 </body>
